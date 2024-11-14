@@ -1,0 +1,57 @@
+.header {
+    background-color: #000000 !important;
+    padding: 0;
+    margin: 0;
+}
+
+.header-title {
+    flex-grow: 1; 
+    font-family: 'Times New Roman', serif !important; 
+    font-weight: bold !important; 
+    font-size: 2rem !important; 
+    color: hsl(0, 0%, 100%); 
+    text-align: left;
+}
+
+.header-buttons {
+    display: flex; /* Hiển thị các nút ở dạng hàng ngang */
+    gap: 10px; /* Khoảng cách giữa các nút */
+    margin-left: auto; /* Đẩy các nút sang bên phải */
+    color: #FFFFFF;
+}
+
+.property-select {
+    margin: 10px 0;
+}
+.property-select-input {
+    color: #FFFFFF ; /* Màu chữ trắng */
+    border: 1px solid transparent; /* Viền trong suất */
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+/* Đặt viền khi không hover */
+.property-select-input.MuiOutlinedInput-notchedOutline {
+    border-color: transparent; /* Viền trong suất */
+}
+
+/* Khi hover */
+.property-select-input:hover {
+    background-color: #45a049; /* Màu nền khi hover */
+    transform: scale(1.05); /* Tăng kích thước khi hover */
+}
+
+/* Đặt viền cho Select */
+.property-select-input.MuiOutlinedInput-root {
+    border: transparent; /* Màu viền mặc định */
+}
+
+/* Tùy chỉnh cho MenuItem */
+.MuiMenuItem-root {
+    color: #FFFFFF; /* Màu chữ cho MenuItem */
+}
+
+/* Nếu bạn muốn đổi màu chữ cho MenuItem khi hover */
+.MuiMenuItem-root:hover {
+    background-color: #e0e0e0; /* Màu nền khi hover MenuItem */
+}
