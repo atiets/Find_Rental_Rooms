@@ -15,12 +15,16 @@ const Login = () => {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        // Nếu currentUser tồn tại, chuyển hướng đến trang chủ
+        // Kiểm tra nếu currentUser không null trước khi kiểm tra thuộc tính admin
         if (currentUser) {
-            navigate("/"); // Hoặc bất kỳ trang nào bạn muốn người dùng được chuyển đến sau khi đăng nhập
+            if (currentUser.admin === true) {
+                navigate("/admin-dashboard"); // Chuyển hướng đến trang dành cho admin
+            } else {
+                navigate("/"); // Chuyển hướng đến trang chủ cho người dùng thông thường
+            }
         }
-    }, [currentUser, navigate]); // Theo dõi currentUser để trigger chuyển hướng khi nó thay đổi
-
+    }, [currentUser, navigate]);
+    
     const handleLogin = (e) => {
         e.preventDefault();
         const newUser = {
