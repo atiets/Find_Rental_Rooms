@@ -1,0 +1,20 @@
+.horizontal-line {
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin: 20px 0;
+  }
+  
+  .custom-fontp {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 900px; 
+}
+
+.custom-textfield {
+  background-color: #CCCCCC;
+}

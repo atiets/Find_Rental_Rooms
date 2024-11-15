@@ -1,0 +1,154 @@
+.post-detail-container {
+  width: 100%;
+  height: auto;
+}
+
+.image-gallery {
+  position: relative;
+  width: calc(100% - 2rem);
+  height: 30%;
+  margin: 1rem auto;
+}
+
+.post-detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.prev-btn,
+.next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.151);
+  border-radius: 50%;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1;
+  transition: none;
+  /* Disable any transition */
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%);
+  padding: 10px;
+  border: none;
+}
+
+
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.container-content-detail {
+  margin: 1rem;
+  display: flex;
+}
+
+.container-left {
+  flex: 2;
+}
+
+.container-cost{
+  display: flex;
+  align-items: center;
+}
+.container-left .container-cost .room-post-price{
+  flex: 1 !important;
+  background-color: #F7837A;
+  font-family: Helvetica;
+  font-weight: 200;
+  color: #2A261A;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  pointer-events: none;
+}
+.container-cost .post-title {
+  flex: 6;
+  margin: 0;
+  padding: 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3A6D2B;
+}
+
+.container-left .post-content{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2 rem;
+  color: #555555;
+}
+
+.container-left .address-detail{
+  color: #2A261A;
+  pointer-events: none;
+  text-transform: none;
+}
+
+.container-right {
+  flex: 1;
+}
+
+.style-icon {
+  size: 1.2rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.container-left .container-table{
+  background-color: #fff1f0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1rem;
+  border-radius: 25px;
+  overflow: hidden;
+  width: 95%;
+}
+
+.container-right .title-cell {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.container-right .card-info{
+  background-color: #fff1f0;
+  margin: 3rem;
+  border-radius: 25px;
+}
+
+.card-info .container-contactinfo{
+  display: flex;
+  padding-bottom: 0.5rem;
+}
+
+.card-info .room-post-username{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #3A6D2B;
+}
+
+.card-info .room-post-button{
+  background-color: #F7837A;
+  border-color: #F7837A;
+  border-radius: 20px;
+  color: #3A6D2B;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 0.5rem;
+  pointer-events: none;
+}
