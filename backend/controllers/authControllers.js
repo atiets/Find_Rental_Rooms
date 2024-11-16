@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { use } = require("../routes/user");
 const { OAuth2Client } = require ('google-auth-library');
+const nodemailer = require("nodemailer");
 
 let refreshTokens = [];
 const client_id = '542714924408-kun6tfccnlcit4k9ono82oue7vqhth70.apps.googleusercontent.com';
@@ -159,6 +160,72 @@ const authController = {
             res.status(500).json({ error: "Google authentication failed", error});
         }
     },
+
+    //forgot pass
+    forgotPassword: async (req, res) => {
+        try {
+            const { email } = req.body;
+            const user = await User.findOne({ email });
+    
+            if (!user) {
+                return res.status(404).json("Email không tồn tại trong hệ thống!");
+            }
+    
+            // Tạo token reset mật khẩu
+            const resetToken = authController.generateAccessToken(user); // Sử dụng access token cho đơn giản
+    
+            // Cấu hình email để gửi mã reset mật khẩu
+            const transporter = nodemailer.createTransport({
+                service: "Gmail",
+                auth: {
+                    user: process.env.EMAIL_USER, // email bạn sẽ dùng để gửi mã
+                    pass: 'gene aqfo xdno jtpz', // mật khẩu hoặc mã ứng dụng của email
+                },
+            });
+    
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: email,
+                subject: "Đặt lại mật khẩu",
+                text: `Vui lòng nhấp vào liên kết để đặt lại mật khẩu của bạn: 
+                ${process.env.CLIENT_URL}/reset-password/${resetToken}`
+            };
+    
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error("Gửi email thất bại:", error);
+                    return res.status(500).json("Có lỗi xảy ra khi gửi email.");
+                }
+                console.log("Email sent: " + info.response);
+                res.status(200).json("Email đặt lại mật khẩu đã được gửi!");
+            });
+    
+        } catch (error) {
+            console.error("Error details: ", error);
+            res.status(500).json({ error: "An error occurred", details: error.message });
+        }
+    },
+
+    //reset password
+    resetPassword: async (req, res) => {
+        try {
+            const { token, newPassword } = req.body;
+    
+            // Xác thực token
+            jwt.verify(token, process.env.JWT_ACCESS_KEY, async (err, user) => {
+                if (err) return res.status(403).json("Token không hợp lệ hoặc đã hết hạn!");
+    
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(newPassword, salt);
+    
+                await User.findByIdAndUpdate(user.id, { password: hashedPassword });
+                res.status(200).json("Mật khẩu đã được đặt lại thành công!");
+            });
+        } catch (error) {
+            console.error("Error details: ", error);
+            res.status(500).json({ error: "An error occurred", details: error.message });
+        }
+    },    
 
 };
 

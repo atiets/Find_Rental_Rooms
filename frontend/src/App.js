@@ -6,6 +6,8 @@ import Home from './components/User/Home/Home';
 import Footer from './components/Footer/Footer';
 import AdminHeader from './components/Admin/AdminHeader/AdminHeader';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard'
+import ForgotPassword from './components/ForgotPassword/ForgotPassword ';
+import ResetPassword from './components/ResetPassword/ResetPassword';
 import './App.css';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           <Route path="/admin-dashboard" element={
           <>

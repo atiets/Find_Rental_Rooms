@@ -78,6 +78,11 @@ const Login = () => {
                     onError={() => console.log("Lỗi đăng nhập Google")}
                 />
             </form>
+
+            <div className="forgot-password-link">
+                <Link to="/forgot-password">Quên mật khẩu?</Link>
+            </div>
+            
             <div className="login-register"> Don't have an account yet? </div>
             <Link className="login-register-link" to="/register">Register one for free </Link>
         </section>
