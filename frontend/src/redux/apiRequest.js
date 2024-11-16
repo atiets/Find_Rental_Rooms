@@ -1,7 +1,7 @@
 import axios from "axios";
 import { loginFailed, loginStart, loginSuccess, logoutFailed, logoutStart, logoutSuccess, registerFailed, registerStart, registerSuccess } from "./authSlice";
 import { deleteUserFailed, deleteUserStart, deleteUserSuccess, getUsersFailed, getUsersSuccess, getUserStart } from "./userSlice";
-import { googleLoginStart, googleLoginSuccess, googleLoginFailed } from "./authSlice"; // Nếu bạn muốn tạo slice cho Google Login
+import { googleLoginStart, googleLoginSuccess, googleLoginFailed, forgotPasswordSuccess, forgotPasswordFailed} from "./authSlice"; 
 
 
 export const loginUser = async(user, dispatch, navigate) =>{
@@ -156,5 +156,31 @@ export const googleLogin = async (tokenId, dispatch, navigate) => {
             console.error("Google login error:", err.message);
         }
         dispatch(googleLoginFailed()); // Gọi action thất bại nếu có lỗi
+    }
+};
+
+export const resetPasswordRequest = async (userEmail, dispatch, setMessage, navigate) => {
+    axios.defaults.baseURL = 'http://localhost:8000'; // Địa chỉ API backend
+    try {
+        const res = await axios.post("/v1/auth/forgot-password", userEmail);
+        dispatch(forgotPasswordSuccess());
+        setMessage('Đường dẫn đặt lại mật khẩu đã được gửi đến email của bạn.');
+        navigate("/login");  // Chuyển về màn hình login sau khi yêu cầu thành công
+    } catch (err) {
+        console.error("Forgot password error:", err.response || err.message);
+        setMessage("Đã xảy ra lỗi, vui lòng thử lại.");
+        dispatch(forgotPasswordFailed());
+    }
+};
+
+export const resetPassword = async (passwordData, dispatch, setMessage, navigate) => {
+    axios.defaults.baseURL = 'http://localhost:8000';
+    try {
+        const res = await axios.post("/v1/auth/reset-password", passwordData);
+        setMessage('Mật khẩu đã được thay đổi thành công.');
+        navigate("/login");  // Sau khi đặt lại mật khẩu thành công, chuyển hướng về login
+    } catch (err) {
+        console.error("Reset password error:", err.response || err.message);
+        setMessage("Đã xảy ra lỗi, vui lòng thử lại.");
     }
 };

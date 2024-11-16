@@ -18,4 +18,10 @@ router.post("/logout", middlewareControllers.verifyToken , authController.userLo
 //login with gg
 router.post("/google", authController.googleLogin);
 
+// forgot password
+router.post("/forgot-password", authController.forgotPassword);
+
+//reset password
+router.post("/reset-password", authController.resetPassword);
+
 module.exports = router;
