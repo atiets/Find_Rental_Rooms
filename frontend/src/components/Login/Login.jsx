@@ -6,6 +6,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import "./Login.css";
 
 const Login = () => {
+    document.title = "Đăng nhập";
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
@@ -50,7 +51,8 @@ const Login = () => {
 
     return ( 
         <section className="login-container">
-            <div className="login-title"> Đăng nhập</div>
+            <div className="form-wrapper">
+            <div className="form-title"> Đăng nhập</div>
             <form onSubmit={handleLogin}>
                 <div className="form-group">
                     <label>Tên đăng nhập:</label>
@@ -72,19 +74,39 @@ const Login = () => {
                         />
                     </div>
                 </div>
-                <div><button type="submit"> Đăng nhập </button></div>
+                <div className="form-group">
+            <div className="button-container">
+              <button type="submit"> Đăng nhập </button>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="form-line">
+              <p>Hoặc</p>
+            </div>
+            <div className="form-center"></div>
                 <GoogleLogin
                     onSuccess={handleGoogleLogin}
                     onError={() => console.log("Lỗi đăng nhập Google")}
                 />
-            </form>
+                </div>
+            
 
             <div className="forgot-password-link">
                 <Link to="/forgot-password">Quên mật khẩu?</Link>
             </div>
             
-            <div className="login-register"> Don't have an account yet? </div>
-            <Link className="login-register-link" to="/register">Register one for free </Link>
+            <div className="form-group">
+            <div className="form-center">
+              <div className="login-register">
+                Don't have an account yet? <br />
+                <Link className="login-register-link" to="/register">
+                  Register one for free
+                </Link>
+              </div>
+            </div>
+          </div>
+            </form>
+            </div>
         </section>
     );
 };
