@@ -67,28 +67,28 @@ const authSlice = createSlice({
 
         googleLoginSuccess: (state, action) => {
             state.login.isFetching = false;
-        
+
             const { credential, accessToken } = action.payload; // Lấy credential và accessToken từ action payload
-        
+
             // Kiểm tra nếu credential không phải là chuỗi hợp lệ
             if (!credential || typeof credential !== 'string') {
                 console.error("Credential không hợp lệ:", credential);
                 state.login.error = true;
                 return;
             }
-        
+
             try {
                 // Giải mã token (ví dụ: JWT)
                 console.log("Credential từ Google:", credential);
                 const decodedToken = jwtDecode(credential);
-        
+
                 // Kiểm tra token có hợp lệ không
                 if (!decodedToken || !decodedToken.sub || !decodedToken.email) {
                     console.error("Token không chứa thông tin người dùng hợp lệ");
                     state.login.error = true;
                     return;
                 }
-        
+
                 // Lưu thông tin người dùng vào Redux
                 state.login.currentUser = {
                     _id: decodedToken.sub,  // ID của người dùng từ Google
@@ -108,7 +108,7 @@ const authSlice = createSlice({
                 console.error("Lỗi khi giải mã token:", error);
                 state.login.error = true;
             }
-        },               
+        },
         googleLoginFailed: (state) => {
             state.isFetching = false;
             state.error = true;

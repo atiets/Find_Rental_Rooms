@@ -1,25 +1,44 @@
 import React from "react";
+import './Sidebar.css';
 
-const Sidebar = ({ user, setSelectedMenu }) => {
+const Sidebar = ({ user, selectedMenu, setSelectedMenu }) => {
   const handleLogout = () => {
-    // Implement logout functionality
+    console.log("User logged out");
   };
+
+  const avatar = user?.avatar || "default-avatar.png";
+
+  const menuItems = [
+    { id: 'newPost', label: 'Đăng tin mới' },
+    { id: 'postList', label: 'Danh sách tin đăng' },
+    { id: 'manageAccount', label: 'Quản lý tài khoản' },
+  ];
 
   return (
     <div className="sidebar">
       <div className="user-info">
-        <img src={user.avatar} alt="User Avatar" className="avatar" />
         <div className="user-details">
-          <h3 className="user-name">{user.username}</h3>
-          <p className="user-phone">{user.phone}</p>
+          <img
+            src={avatar} // Sử dụng đường dẫn avatar
+            alt="User Avatar"
+            className="user-avatar" // Thêm class để dễ dàng style
+          />
         </div>
       </div>
       <nav className="nav-menu">
         <ul>
-          <li onClick={() => setSelectedMenu('newPost')}>Đăng tin mới</li>
-          <li onClick={() => setSelectedMenu('postList')}>Danh sách tin đăng</li>
-          <li onClick={() => setSelectedMenu('manageAccount')}>Quản lý tài khoản</li>
-          <li onClick={handleLogout}>Đăng xuất</li>
+          {menuItems.map((item) => (
+            <li
+              key={item.id}
+              className={`menu-item ${selectedMenu === item.id ? 'active' : ''}`}
+              onClick={() => setSelectedMenu(item.id)}
+            >
+              {item.label}
+            </li>
+          ))}
+          <li className="menu-item logout" onClick={handleLogout}>
+            Đăng xuất
+          </li>
         </ul>
       </nav>
     </div>

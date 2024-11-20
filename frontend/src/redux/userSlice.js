@@ -16,6 +16,8 @@ const userSlice = createSlice({
         setUser: (state, action) => {
             state.currentUser = action.payload.user;
             state.accessToken = action.payload.accessToken;
+            state.isFetching = false;
+            localStorage.setItem("accessToken", action.payload.accessToken);
         },
         getUserStart: (state) => {
             state.users.isFetching = true;
@@ -26,7 +28,7 @@ const userSlice = createSlice({
         },
         getUsersFailed: (state) => {
             state.users.isFetching = false;
-            state.users.error = true; 
+            state.users.error = true;
         },
         deleteUserStart: (state) => {
             state.users.isFetching = true;
@@ -45,7 +47,7 @@ const userSlice = createSlice({
 })
 
 export const {
-    setUser, 
+    setUser,
     getUserStart,
     getUsersSuccess,
     getUsersFailed,

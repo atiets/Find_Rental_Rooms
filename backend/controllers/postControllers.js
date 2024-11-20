@@ -119,7 +119,7 @@ exports.getPostsByStatus = async (req, res) => {
 //Lấy bài đăng(new)
 exports.getUserPostsByStateAndVisibility = async (req, res) => {
     try {
-        const { status, visibility } = req.query; 
+        const { status, visibility } = req.query;
 
         if (!status || !visibility) {
             return res.status(400).json({ message: "State and visibility are required" });
@@ -142,34 +142,34 @@ exports.getUserPostsByStateAndVisibility = async (req, res) => {
 exports.updatePost = async (req, res) => {
     const { postId } = req.params;
     const updateData = req.body;
-  
+
     try {
-      const updatedPost = await Post.findByIdAndUpdate(postId, updateData, { new: true });
-      if (!updatedPost) {
-        return res.status(404).json({ message: 'Bài đăng không tồn tại' });
-      }
-      res.json(updatedPost);
+        const updatedPost = await Post.findByIdAndUpdate(postId, updateData, { new: true });
+        if (!updatedPost) {
+            return res.status(404).json({ message: 'Bài đăng không tồn tại' });
+        }
+        res.json(updatedPost);
     } catch (error) {
-      res.status(500).json({ message: 'Lỗi server', error: error.message });
+        res.status(500).json({ message: 'Lỗi server', error: error.message });
     }
-  };
+};
 
 //Ẩn bài đăng
 exports.toggleVisibility = async (req, res) => {
     const { postId } = req.params;
-  
+
     try {
-      const post = await Post.findById(postId);
-      if (!post) {
-        return res.status(404).json({ message: 'Bài đăng không tồn tại' });
-      }
-  
-      post.visibility = post.visibility === 'visible' ? 'hiden' : 'visible';
-      await post.save();
-  
-      res.json({ message: 'Trạng thái hiển thị đã được cập nhật', visibility: post.visibility });
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).json({ message: 'Bài đăng không tồn tại' });
+        }
+
+        post.visibility = post.visibility === 'visible' ? 'hiden' : 'visible';
+        await post.save();
+
+        res.json({ message: 'Trạng thái hiển thị đã được cập nhật', visibility: post.visibility });
     } catch (error) {
-      res.status(500).json({ message: 'Lỗi server', error: error.message });
+        res.status(500).json({ message: 'Lỗi server', error: error.message });
     }
-  };
-  
+};
+

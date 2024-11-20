@@ -24,7 +24,7 @@ const Login = () => {
             }
         }
     }, [currentUser, navigate]);
-    
+
     const handleLogin = (e) => {
         e.preventDefault();
         const newUser = {
@@ -40,7 +40,7 @@ const Login = () => {
         } else {
             const { credential } = response;
             console.log("Credential từ Google:", credential);
-            
+
             // Gọi googleLogin từ apiRequest để xác thực với backend
             googleLogin(credential, dispatch, navigate)
                 .then(() => console.log("Đăng nhập Google thành công"))
@@ -48,16 +48,16 @@ const Login = () => {
         }
     };
 
-    return ( 
+    return (
         <section className="login-container">
             <div className="login-title"> Đăng nhập</div>
             <form onSubmit={handleLogin}>
                 <div className="form-group">
                     <label>Tên đăng nhập:</label>
                     <div className="input-container">
-                        <input 
-                            type="text" 
-                            placeholder="Nhập tên đăng nhập" 
+                        <input
+                            type="text"
+                            placeholder="Nhập tên đăng nhập"
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
@@ -65,9 +65,9 @@ const Login = () => {
                 <div className="form-group">
                     <label>Mật khẩu:</label>
                     <div className="input-container">
-                        <input 
-                            type="password" 
-                            placeholder="Nhập mật khẩu" 
+                        <input
+                            type="password"
+                            placeholder="Nhập mật khẩu"
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
@@ -82,7 +82,7 @@ const Login = () => {
             <div className="forgot-password-link">
                 <Link to="/forgot-password">Quên mật khẩu?</Link>
             </div>
-            
+
             <div className="login-register"> Don't have an account yet? </div>
             <Link className="login-register-link" to="/register">Register one for free </Link>
         </section>

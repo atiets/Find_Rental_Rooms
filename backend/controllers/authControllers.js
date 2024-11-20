@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt"); //hash pass
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { use } = require("../routes/user");
-const { OAuth2Client } = require ('google-auth-library');
+const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require("nodemailer");
 
 let refreshTokens = [];
@@ -12,8 +12,8 @@ const client = new OAuth2Client(client_id);
 
 const authController = {
     //REGISTER
-    registerUser: async(req, res) => {
-        try{
+    registerUser: async (req, res) => {
+        try {
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(req.body.password, salt);
 
@@ -25,15 +25,15 @@ const authController = {
 
             const user = await newUser.save();
             res.status(200).json(user);
-        }catch(err){
+        } catch (err) {
             // res.status(200).json(err);
-            console.error("Error details: ", err); 
+            console.error("Error details: ", err);
             res.status(500).json({ error: "An error occurred", details: err.message });
         }
     },
 
     //generate access token
-    generateAccessToken: (user) =>{
+    generateAccessToken: (user) => {
         return jwt.sign(
             {
                 id: user.id,
@@ -45,7 +45,7 @@ const authController = {
     },
 
     //generate refresh token
-    generateRefreshToken: (user) =>{
+    generateRefreshToken: (user) => {
         return jwt.sign(
             {
                 id: user.id,
@@ -63,7 +63,7 @@ const authController = {
             if (!user) {
                 return res.status(404).json("Wrong username!");
             }
-            
+
             const validPassword = await bcrypt.compare(req.body.password, user.password);
             if (!validPassword) {
                 return res.status(404).json("Wrong password!");
@@ -104,9 +104,9 @@ const authController = {
                 console.log(err);
                 return res.status(403).json("Refresh token is not valid!");
             }
-            
+
             // Xóa token cũ
-            refreshTokens = refreshTokens.filter((token) => token !== refreshTokenFromCookies); 
+            refreshTokens = refreshTokens.filter((token) => token !== refreshTokenFromCookies);
             // Tạo token mới
             const newAccessToken = authController.generateAccessToken(user);
             const newRefreshToken = authController.generateRefreshToken(user);
@@ -122,9 +122,9 @@ const authController = {
         });
     },
 
-    userLogout: async(req, res) => {
+    userLogout: async (req, res) => {
         res.clearCookie("refreshToken");
-        refreshTokens = refreshTokens.filter(token  => token !== req.cookies.refreshToken);
+        refreshTokens = refreshTokens.filter(token => token !== req.cookies.refreshToken);
         res.status(200).json("Logged out successfully!")
     },
 
@@ -157,7 +157,7 @@ const authController = {
 
         } catch (error) {
             console.error("Google authentication error: ", error);
-            res.status(500).json({ error: "Google authentication failed", error});
+            res.status(500).json({ error: "Google authentication failed", error });
         }
     },
 
@@ -166,14 +166,14 @@ const authController = {
         try {
             const { email } = req.body;
             const user = await User.findOne({ email });
-    
+
             if (!user) {
                 return res.status(404).json("Email không tồn tại trong hệ thống!");
             }
-    
+
             // Tạo token reset mật khẩu
             const resetToken = authController.generateAccessToken(user); // Sử dụng access token cho đơn giản
-    
+
             // Cấu hình email để gửi mã reset mật khẩu
             const transporter = nodemailer.createTransport({
                 service: "Gmail",
@@ -182,7 +182,7 @@ const authController = {
                     pass: 'gene aqfo xdno jtpz', // mật khẩu hoặc mã ứng dụng của email
                 },
             });
-    
+
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: email,
@@ -190,7 +190,7 @@ const authController = {
                 text: `Vui lòng nhấp vào liên kết để đặt lại mật khẩu của bạn: 
                 ${process.env.CLIENT_URL}/reset-password/${resetToken}`
             };
-    
+
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.error("Gửi email thất bại:", error);
@@ -199,7 +199,7 @@ const authController = {
                 console.log("Email sent: " + info.response);
                 res.status(200).json("Email đặt lại mật khẩu đã được gửi!");
             });
-    
+
         } catch (error) {
             console.error("Error details: ", error);
             res.status(500).json({ error: "An error occurred", details: error.message });
@@ -210,14 +210,14 @@ const authController = {
     resetPassword: async (req, res) => {
         try {
             const { token, newPassword } = req.body;
-    
+
             // Xác thực token
             jwt.verify(token, process.env.JWT_ACCESS_KEY, async (err, user) => {
                 if (err) return res.status(403).json("Token không hợp lệ hoặc đã hết hạn!");
-    
+
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(newPassword, salt);
-    
+
                 await User.findByIdAndUpdate(user.id, { password: hashedPassword });
                 res.status(200).json("Mật khẩu đã được đặt lại thành công!");
             });
@@ -225,7 +225,64 @@ const authController = {
             console.error("Error details: ", error);
             res.status(500).json({ error: "An error occurred", details: error.message });
         }
-    },    
+    },
+    getUserInfo: async (req, res) => {
+        try {
+            // Lấy thông tin người dùng từ JWT token
+            const userId = req.user.id;  // user.id được lấy từ JWT payload (đã giải mã)
+
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json("User not found");
+            }
+
+            const { password, ...others } = user._doc;  // Loại bỏ password từ kết quả trả về
+            res.status(200).json(others);  // Trả về thông tin người dùng không có mật khẩu
+        } catch (err) {
+            console.error("Error details: ", err);
+            res.status(500).json({ error: "An error occurred", details: err.message });
+        }
+    },
+
+    // Chỉnh sửa thông tin người dùng
+    updateUserInfo: async (req, res) => {
+        try {
+            const userId = req.user.id;  // user.id được lấy từ JWT payload (đã giải mã)
+
+            // Kiểm tra xem người dùng có tồn tại không
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json("User not found");
+            }
+
+            // Lấy thông tin mới từ request body
+            const { username, email, profile } = req.body;
+
+            // Cập nhật thông tin người dùng
+            if (username) user.username = username;
+            if (email) user.email = email;
+
+            // Nếu có dữ liệu profile trong body, cập nhật vào trường profile
+            if (profile) {
+                // Cập nhật thông tin profile
+                if (profile.name) user.profile.name = profile.name;
+                if (profile.phone) user.profile.phone = profile.phone;
+                if (profile.address) user.profile.address = profile.address;
+                if (profile.avatar) user.profile.avatar = profile.avatar;
+            }
+
+            // Lưu lại thay đổi
+            const updatedUser = await user.save();
+
+            // Trả về thông tin người dùng đã cập nhật
+            const { password, ...others } = updatedUser._doc;
+            res.status(200).json(others);
+        } catch (err) {
+            console.error("Error details: ", err);
+            res.status(500).json({ error: "An error occurred", details: err.message });
+        }
+    }
+
 
 };
 
