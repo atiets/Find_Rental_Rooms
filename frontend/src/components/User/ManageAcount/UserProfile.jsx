@@ -17,15 +17,20 @@ const UserProfile = () => {
     const [editMode, setEditMode] = useState(false);
 
     const accessToken = useSelector(
-        (state) => state.auth.login.currentUser.accessToken
+        (state) => state.auth?.login?.currentUser?.accessToken
     );
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get("http://localhost:8000/v1/auth/info", {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            setFormData(response.data);
+            if (!accessToken) return; // Nếu không có accessToken, dừng thực hiện API
+            try {
+                const response = await axios.get("http://localhost:8000/v1/auth/info", {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                setFormData(response.data);
+            } catch (error) {
+                console.error("Error fetching user info:", error);
+            }
         };
         fetchData();
     }, [accessToken]);
@@ -64,14 +69,22 @@ const UserProfile = () => {
 
     const handleSave = async () => {
         if (validate()) {
-            await axios.put(
-                "http://localhost:8000/v1/auth/update",
-                formData,
-                { headers: { Authorization: `Bearer ${accessToken}` } }
-            );
-            setEditMode(false);
+            try {
+                await axios.put(
+                    "http://localhost:8000/v1/auth/update",
+                    formData,
+                    { headers: { Authorization: `Bearer ${accessToken}` } }
+                );
+                setEditMode(false);
+            } catch (error) {
+                console.error("Error updating user info:", error);
+            }
         }
     };
+
+    if (!accessToken) {
+        return <p>Vui lòng đăng nhập để xem thông tin cá nhân.</p>;
+    }
 
     return (
         <div className="user-profile">

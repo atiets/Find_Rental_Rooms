@@ -18,7 +18,8 @@
 }
 
 .content-wrapper main {
-  flex: 1 !important; /* Đảm bảo nội dung chính chiếm không gian còn lại */
+  flex: 1 !important;
+  /* Đảm bảo nội dung chính chiếm không gian còn lại */
 }
 
 .footer {
@@ -26,4 +27,21 @@
   padding: 20px;
   text-align: center;
   color: #fff;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
 }
