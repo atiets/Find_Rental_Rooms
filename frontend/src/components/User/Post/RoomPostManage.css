@@ -15,11 +15,12 @@
     border: 1px solid #ddd;
     border-radius: 20px !important;
     overflow: hidden;
-    padding: 0 !important;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .room-post-images {
-    display: flex;
+    display: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -40,13 +41,28 @@
 }
 
 .room-post-more {
+    color: #333333 !important;
     position: absolute;
-    margin-right: 0rem !important;
-    background: #F7837A;
+    background-color: transparent;
     border: none;
-    color: #333;
     cursor: pointer;
-    font-size: 18px;
+}
+
+.room-post-more:hover {
+    background-color: transparent;
+    border: none;
+    color: inherit; 
+}
+
+.custom-menu-container {
+    position: absolute; 
+    z-index: 10;
+    padding: 0;
+}
+
+.custom-menu-container .custom-menu-item{
+    display: flex;
+    gap: 0.5rem;
 }
 
 .room-post-content {
