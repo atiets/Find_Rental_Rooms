@@ -5,7 +5,7 @@ import ListPostByStatusVisibility from '../Post/ListPostByStatusVisibility';
 const ListPostHiden = () => {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
   const token = currentUser?.accessToken;
-  const status = 'approve';
+  const status = 'approved';
   const visibility = 'hiden'; 
 
   return (

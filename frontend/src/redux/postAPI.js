@@ -15,20 +15,21 @@ export const createPost = async (postData, token) => {
   if (response.status === 201 || response.status === 200) {
     return response;
   } else {
-    throw new Error('Unexpected response status: ' + response.status);
+    throw new Error(response.message);
   }
 }
 
-export const getAllPosts = async (token) => { 
+export const getAllPosts = async (token, page = 1, limit = 10, status = '', visibility = '') => { 
   try {
     const response = await axios.get(`${API_URL}posts`, {
+      params: { page, limit, status, visibility },
       headers: {
-        Authorization: `Bearer ${token}` // Thêm token vào header
+        Authorization: `Bearer ${token}`
       }
     });
-    return response.data; // Return the data from the response
+    return response.data;
   } catch (error) {
-    throw new Error(error.message); // Throw an error if the request fails
+    throw new Error(error.message); 
   }
 };
 
@@ -63,5 +64,76 @@ export const getUserPostsByStateAndVisibility = async (status, visibility, token
   } catch (error) {
     console.error('Lỗi khi gọi API lấy bài đăng của người dùng theo trạng thái và visibility:', error);
     throw error;
+  }
+};
+
+export const togglePostVisibility = async (postId, token) => {
+  try {
+    const response = await axios.put(`${API_URL}toggle-visibility/${postId}`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data; 
+  } catch (error) {
+    console.error('Lỗi khi gọi API thay đổi trạng thái hiển thị bài viết:', error);
+    throw error;
+  }
+};
+
+export const deletePost = async (postId, token) => {
+  try {
+      const response = await axios.delete(`${API_URL}posts/${postId}`, {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
+      return response.data; 
+  } catch (error) {
+      throw error;
+  }
+};
+
+export const updatePost = async (postId, postData, token) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}update/${postId}`,
+      postData, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi cập nhật bài đăng:', error);
+    throw error;
+  }
+};
+
+export const approvePost = async (token, postId) => {
+  try {
+    const response = await axios.put(`${API_URL}${postId}/approve`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const rejectPost = async (token, postId) => {
+  try {
+    const response = await axios.put(`${API_URL}${postId}/reject`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
   }
 };

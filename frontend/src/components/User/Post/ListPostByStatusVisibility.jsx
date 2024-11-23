@@ -1,27 +1,68 @@
 import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import { getUserPostsByStateAndVisibility } from '../../../redux/postAPI'; // Hàm API mới
+import { setSelectedMenu } from '../../../redux/menuSlice';
+import { deletePost, getUserPostsByStateAndVisibility, togglePostVisibility } from '../../../redux/postAPI'; // Hàm API mới
+import { setPosts, setSelectedPost } from '../../../redux/postSlice';
 import './RoomPost.css';
 import RoomPostManage from './RoomPostManage';
-const ListPostByStatusVisibility = ({ status, visibility, token, setSelectedMenu }) => {
+const ListPostByStatusVisibility = ({ status, visibility, token }) => {
     const [userPosts, setUserPosts] = useState([]);
+    const posts = useSelector((state) => state.posts.posts); 
     const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const navigate = useNavigate();  // Initialize navigate function
-
-    // Hàm điều hướng khi nhấn vào tiêu đề bài viết
     const handleTitleClick = (id) => {
         console.log("Navigating to post with ID:", id);
         if (id) {
-            navigate(`/posts/${id}`);  // Điều hướng đến bài viết với ID tương ứng
+            navigate(`/posts/${id}`);
         } else {
             console.error('ID bài đăng không hợp lệ');
         }
     };
 
     const handleCreatePost = () => {
-        navigate('/AddPost'); // Khi nhấn vào, thay đổi nội dung sang đăng tin mới
+        navigate('/AddPost');
+    };
+
+    const handleEditPost = (postId) => {
+            dispatch(setSelectedPost(postId));
+            dispatch(setSelectedMenu('updatePost')); 
+    };
+
+    const handleHidePost = async (postId) => {
+        try {
+            const response = await togglePostVisibility(postId, token);
+            if (response.success) {
+                const updatedPosts = posts.filter(post => post.id !== postId);
+                dispatch(setPosts(updatedPosts));
+            }
+        } catch (error) {
+            console.error('Lỗi khi ẩn bài viết:', error);
+        }
+    };
+
+    const handleVisiblePost = async (postId) => {
+        try {
+            const response = await togglePostVisibility(postId, token);
+            if (response.success) {
+                const updatedPosts = posts.filter(post => post.id !== postId);
+                dispatch(setPosts(updatedPosts));
+            }
+        } catch (error) {
+            console.error('Lỗi khi ẩn bài viết:', error);
+        }
+    };
+
+    const handleDeletePost = async (postId) => {
+        try {
+            const result = await deletePost(postId, token);
+            console.log('Post deleted:', result); 
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
@@ -29,7 +70,6 @@ const ListPostByStatusVisibility = ({ status, visibility, token, setSelectedMenu
             try {
                 const response = await getUserPostsByStateAndVisibility(status, visibility, token);
                 const data = response.data;
-
                 console.log("User posts:", data);
                 const formattedPosts = data.map(post => ({
                     id: post._id,
@@ -45,10 +85,11 @@ const ListPostByStatusVisibility = ({ status, visibility, token, setSelectedMenu
                     },
                     rentalPrice: post.rentalPrice,
                     area: post.area,
-                    images: post.images ? post.images.slice(0, 2) : [], // Hiển thị 2 ảnh đầu tiên
+                    images: post.images ? post.images.slice(0, 2) : [],
+                    visibility: post.visibility || '',
+                    status: post.status || '',
                 }));
-
-                setUserPosts(formattedPosts);
+                dispatch(setPosts(formattedPosts));
             } catch (error) {
                 console.error('Lỗi khi lấy dữ liệu từ API:', error);
             } finally {
@@ -57,20 +98,23 @@ const ListPostByStatusVisibility = ({ status, visibility, token, setSelectedMenu
         };
 
         fetchUserPosts();
-    }, [status, visibility, token]); // Dependency array, fetch lại khi các giá trị thay đổi
-
-    // Nếu đang tải dữ liệu thì hiển thị loading
+    }, [status, visibility, token]);
     if (loading) return <div>Loading...</div>;
 
     return (
         <div className="user-posts-list">
-            {/* Hiển thị bài đăng */}
-            {userPosts.length > 0 ? (
-                userPosts.map((post, index) => (
-                    <RoomPostManage key={index} post={post} onTitleClick={handleTitleClick} />
+            {posts.length > 0 ? (
+                posts.map((post, index) => (
+                    <RoomPostManage
+                        key={index}
+                        post={post}
+                        onTitleClick={handleTitleClick}
+                        onEditPost={handleEditPost}
+                        onHidePost={handleHidePost} 
+                        onDeletePost={handleDeletePost}
+                        onVisiblePost={handleVisiblePost}/>
                 ))
             ) : (
-                // Nếu không có bài đăng, hiển thị nút đăng tin mới
                 <div className='container-nocontent'>
                     <Typography>Bạn chưa có tin đăng nào</Typography>
                     <button onClick={handleCreatePost} style={{ marginTop: '20px' }}>

@@ -9,7 +9,6 @@ import { Avatar, Box, Button, Card, Divider, Paper, Table, TableBody, TableCell,
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostDetail } from '../../../redux/postAPI';
-import Header from '../Header/Header';
 import './PostDetail.css';
 
 const PostDetail = () => {
@@ -44,7 +43,6 @@ const PostDetail = () => {
 
   return (
     <div className="post-detail-container">
-      <Header />
       {post.images && post.images.length > 0 && (
         <div className="image-gallery">
           <img
