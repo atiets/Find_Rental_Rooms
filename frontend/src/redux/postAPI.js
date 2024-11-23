@@ -137,3 +137,17 @@ export const rejectPost = async (token, postId) => {
     throw new Error(error.message);
   }
 };
+
+//Admin lấy bài đăng của người dùng
+export const getUserPostsByUserId = async (token, userId) => {
+  try {
+    const response = await axios.get(`${API_URL}user-posts/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+};
