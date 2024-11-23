@@ -64,7 +64,11 @@ const authSlice = createSlice({
             state.isFetching = true;
             state.error = false;
         },
-
+        // googleLoginSuccess: (state, action) => {
+        //     state.login.isFetching = false;
+        //     state.login.currentUser = action.payload; 
+        //     state.login.error = false;
+        // },
         googleLoginSuccess: (state, action) => {
             state.login.isFetching = false;
         
@@ -99,7 +103,7 @@ const authSlice = createSlice({
                     accessToken,  // Lưu accessToken từ backend
                     googleCredential: credential, // Lưu credential của Google
                     createdAt: new Date(decodedToken.iat * 1000).toISOString(), // Thời gian tạo người dùng
-                    updatedAt: new Date().toISOString(),  // Cập nhật thời gian hiện tại
+                    updatedAt: new Date().toISOString(), 
                     __v: 0  // Mặc định là 0
                 };
                 console.log("Current User in Redux:", state.login.currentUser);
@@ -143,8 +147,8 @@ export const {
     googleLoginSuccess,
     googleLoginFailed,
     forgotPasswordStart,
-    forgotPasswordFailed,
-    forgotPasswordSuccess
+    forgotPasswordSuccess,
+    forgotPasswordFailed
 } = authSlice.actions;
 
 export default authSlice.reducer;

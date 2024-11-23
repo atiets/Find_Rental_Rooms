@@ -32,9 +32,16 @@ const userSchema = new mongoose.Schema({
     address: {
       type: String,
     },
-    avatar: {
+    picture: {
       type: String,
     },
+    isBlocked: {   
+      type: Boolean,
+      default: false,
+    },  
+    bio:{
+      type: String,
+    }   
   }
 }, { timestamps: true });
 

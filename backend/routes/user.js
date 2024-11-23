@@ -10,4 +10,7 @@ router.get("/", middlewareControllers.verifyToken, userController.getAllUsers);
 //v1/user/admin(id)
 router.delete("/:id", middlewareControllers.verifyTokenAndAdminAuth, userController.deleteUser);
 
+//khóa/mở khóa tài khoản
+router.put("/block/:id", middlewareControllers.verifyTokenAndAdminAuth, userController.toggleBlockUser);
+
 module.exports = router;

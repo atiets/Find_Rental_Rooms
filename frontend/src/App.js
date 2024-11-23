@@ -13,6 +13,7 @@ import './App.css';
 import ManageAcount from './components/User/ManageAcount/ManageAcount';
 import AddPost from './components/User/Post/AddPost';
 import PostDetail from './components/User/Post/PostDetail';
+import ManageUsers from './components/Admin/ManageUsers/ManageUsers'
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
             <Footer /> 
           </>
         } />
+
+          <Route path="/manage-users" element={
+            <>
+              <AdminHeader />
+              <ManageUsers />
+              <Footer />
+            </>
+          } />
 
           <Route path="/" element={
             <div className="content-wrapper">
