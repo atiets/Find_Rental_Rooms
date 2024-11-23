@@ -2,8 +2,9 @@ import { useSelector } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
-import ManagePostAdmin from './components/Admin/AdminDashboard/ManagePostAdmin';
 import AdminHeader from './components/Admin/AdminHeader/AdminHeader';
+import ManageUsers from './components/Admin/ManageUsers/ManageUsers';
+import UserPosts from './components/Admin/ManageUsers/UserPosts';
 import Footer from './components/Footer/Footer';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword ';
 import Login from './components/Login/Login';
@@ -14,7 +15,6 @@ import Home from './components/User/Home/Home';
 import ManageAcount from './components/User/ManageAcount/ManageAcount';
 import AddPost from './components/User/Post/AddPost';
 import PostDetail from './components/User/Post/PostDetail';
-import ManageUsers from './components/Admin/ManageUsers/ManageUsers'
 
 function App() {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
@@ -46,10 +46,17 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path="/manage-posts" element={
+          <Route path="/admin-dashboard" element={
             <>
               <AdminHeader />
-              <ManagePostAdmin />
+              <AdminDashboard />
+              <Footer />
+            </>
+          } />
+          <Route path="/user-posts/:userId" element={
+            <>
+              <AdminHeader />
+              <UserPosts />
             </>
           } />
           <Route path="/manage-users" element={

@@ -16,8 +16,10 @@ router.put("/posts/:id", middlewareControllers.verifyToken, postController.updat
 router.delete("/posts/:id", middlewareControllers.verifyToken, postController.deletePost);
 //Lấy bài đăng theo status
 router.get('/posts-by-status', postController.getPostsByStatus);
+//Lấy bài đăng của bản thân quản lý bài đăng user
 router.get('/list-post-pending',middlewareControllers.verifyToken, postController.getUserPostsByStateAndVisibility);
-// Route cập nhật bài đăng
+//Lấy bài đăng của người dùng quản lý bài đăng admin
+router.get('/user-posts/:userId', middlewareControllers.verifyTokenAndAdminAuth, postController.getUserPostsByUserId);
 router.put('/update/:postId',middlewareControllers.verifyToken, postController.updatePost);
 // Route ẩn/hiện bài đăng
 router.put('/toggle-visibility/:postId',middlewareControllers.verifyToken, postController.toggleVisibility);

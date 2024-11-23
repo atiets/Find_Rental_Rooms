@@ -272,3 +272,17 @@ exports.approvePost = async (req, res) => {
       res.status(500).json({ message: 'Error rejecting post', error: error.message });
     }
   };
+
+  exports.getUserPostsByUserId = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const posts = await Post.find({
+            "contactInfo.user": userId
+        });
+
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error("Error fetching user posts by user ID:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
