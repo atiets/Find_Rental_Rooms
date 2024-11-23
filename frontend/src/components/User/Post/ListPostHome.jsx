@@ -1,9 +1,8 @@
 // Component cha (Ví dụ: UserPostList)
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getApprovedPosts } from '../../../redux/postAPI'; // Giả sử đây là hàm API
-import RoomPost from './RoomPost'; // Import RoomPost đã được tái sử dụng
-
+import { getApprovedPosts } from '../../../redux/postAPI';
+import RoomPost from './RoomPost';
 const ListPostHome = () => {
   const [approvedPosts, setApprovedPosts] = useState([]);
   const [loading, setLoading] = useState(true);

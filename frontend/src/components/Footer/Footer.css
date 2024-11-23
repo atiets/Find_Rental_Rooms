@@ -1,16 +1,46 @@
+/* Đặt footer luôn ở cuối trang */
 .footer {
-    background-color: #292929;
-    padding: 20px;
+  background-color: #282c34;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1;
+  padding: 10px;
+  min-width: 250px;
+}
+
+.footer-section h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-section p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
     text-align: center;
-    color: #fff;
+    padding: 10px 0;
   }
-  
-  .footer h6 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  
-  .footer p {
-    margin: 5px 0;
-    font-size: 1rem;
-  }
+}

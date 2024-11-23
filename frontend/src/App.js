@@ -27,14 +27,14 @@ function App() {
 
           <Route path="/AddPost" element={<AddPost />} />
           <Route path="/posts/:id" element={<PostDetail />} />
-          <Route path="/managerAc" element={<ManageAcount/>}/>
+          <Route path="/managerAc" element={<ManageAcount />} />
           <Route path="/admin-dashboard" element={
-          <>
-            <AdminHeader /> 
-            <AdminDashboard /> 
-            <Footer /> 
-          </>
-        } />
+            <>
+              <AdminHeader />
+              <AdminDashboard />
+              <Footer />
+            </>
+          } />
 
           <Route path="/manage-users" element={
             <>
@@ -50,7 +50,7 @@ function App() {
               <Home />
               <Footer />
             </div>
-          } />        
+          } />
         </Routes>
       </div>
     </Router>

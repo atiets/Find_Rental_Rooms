@@ -13,7 +13,7 @@ router.post("/login", authController.loginUser);
 router.post("/refresh", authController.requestRefreshToken);
 
 //logout
-router.post("/logout", middlewareControllers.verifyToken , authController.userLogout);
+router.post("/logout", middlewareControllers.verifyToken, authController.userLogout);
 
 //login with gg
 router.post("/google", authController.googleLogin);
@@ -23,5 +23,11 @@ router.post("/forgot-password", authController.forgotPassword);
 
 //reset password
 router.post("/reset-password", authController.resetPassword);
+// Xem thông tin người dùng
+router.get("/info", middlewareControllers.verifyToken, authController.getUserInfo);
+
+// Chỉnh sửa thông tin người dùng
+router.put("/update", middlewareControllers.verifyToken, authController.updateUserInfo);
+
 
 module.exports = router;

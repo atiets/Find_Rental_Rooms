@@ -1,26 +1,25 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 import './Footer.css';
 
 const Footer = () => {
   return (
-    <Box className="footer">
-      <Typography variant="h6">
-        CÔNG TY TNHH UTE
-      </Typography>
-      <Typography variant="body1">
-        Tổng đài CSKH: 04564789
-      </Typography>
-      <Typography variant="body1">
-        Copyright © 2023 - 2024 PhongTroXinh.com
-      </Typography>
-      <Typography variant="body1">
-        Email: PhongTroXinh@gmail.com
-      </Typography>
-      <Typography variant="body1">
-        Địa chỉ: 01 Đ. Võ Văn Ngân, Linh Chiểu, Thủ Đức, Hồ Chí Minh
-      </Typography>
-    </Box>
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-section">
+          <h6>CÔNG TY TNHH UTE</h6>
+          <p>Chuyên cung cấp dịch vụ cho thuê phòng trọ, căn hộ, nhà nguyên căn tại TP. Hồ Chí Minh.</p>
+        </div>
+        <div className="footer-section">
+          <h6>Thông tin liên hệ</h6>
+          <p>Tổng đài CSKH: 04564789</p>
+          <p>Email: PhongTroXinh@gmail.com</p>
+          <p>Địa chỉ: 01 Đ. Võ Văn Ngân, Linh Chiểu, Thủ Đức, Hồ Chí Minh</p>
+        </div>
+        <div className="footer-section">
+          <p>Copyright © 2023 - 2024 PhongTroXinh.com</p>
+        </div>
+      </div>
+    </footer>
   );
 };
 

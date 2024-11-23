@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ListPostHome from '../Post/ListPostHome';
 import './Home.css';
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <ListPostHome/>
       {user ? (
         <>
           <p>Hello, {user}</p>
