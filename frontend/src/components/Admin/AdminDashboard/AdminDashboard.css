@@ -1,18 +1,132 @@
-.container-home-admin {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  font-family: Arial, Helvetica, sans-serif !important;
+/* Tổng quan */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
-.container-body {
-  display: flex;
-  flex: 1;
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar {
-  width: 250px;
-  background-color: #f4f4f4;
-  height: 100%;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+h1, h2 {
+  color: #4A90E2;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+p {
+  text-align: center;
+  font-size: 18px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+/* Input và Button */
+input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4A90E2;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #357ABD;
+}
+
+/* Biểu đồ */
+.chart-container {
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h2 {
+  margin-bottom: 20px;
+}
+
+.chart {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 10px;
+  }
+
+  input[type="date"], button {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+.chart-container {
+  width: 60%; /* Hoặc giá trị bạn muốn */
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.chart-container canvas {
+  max-width: 100%;
+  height: auto;
+}
+.date-range-container {
+  display: flex;
+  flex-direction: row; /* Sắp xếp các phần tử theo hàng ngang */
+  justify-content: center; /* Căn giữa các phần tử */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  margin: 20px 0; /* Khoảng cách trên và dưới */
+  gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+.date-range-container input[type="date"],
+.date-range-container button {
+  padding: 6px 8px; /* Thu nhỏ khoảng cách bên trong */
+  font-size: 14px; /* Giảm kích thước font */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  width: 130px; /* Đặt độ rộng nhỏ hơn nhưng hợp lý */
+}
+
+button {
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #357ABD;
 }

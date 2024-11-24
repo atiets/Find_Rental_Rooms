@@ -10,6 +10,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostDetail } from '../../../redux/postAPI';
 import './PostDetail.css';
+import AddReviewForm  from '../../Review/AddReviewForm';
+import ReviewsList from'../../Review/ReviewsList';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -107,6 +109,8 @@ const PostDetail = () => {
           </Card>
         </Box>
       </Box>
+      <AddReviewForm/>
+      <ReviewsList postId={id} />
     </div>
   );
 };
