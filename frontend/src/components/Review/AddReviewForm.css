@@ -1,0 +1,156 @@
+.review-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa theo chiều ngang */
+    margin-bottom: 20px; /* Tạo khoảng cách dưới tiêu đề */
+    margin-left: 20px; /* Tăng khoảng cách từ lề trái */
+    margin-right: 560px; /* Tăng khoảng cách từ lề phải nếu cần */
+  }
+  
+  .review-header h3 {
+    margin: 0 0 10px 0; /* Bỏ khoảng cách bên trên, thêm khoảng cách dưới */
+    text-align: center; /* Căn giữa văn bản trong tiêu đề */
+  }
+  
+  .review-header .button {
+    margin-top: 10px; /* Khoảng cách giữa tiêu đề và nút */
+  }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Đảm bảo nội dung canh giữa */
+  }
+  
+  h3 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Nhóm input */
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Label */
+  .form-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+    margin-right: 20px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  
+  /* Input và Textarea */
+  .input,
+  .textarea {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 10px;
+    box-sizing: border-box;
+  }
+  
+  .textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  /* Nút thêm đánh giá */
+  .button {
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Nút submit và nút đóng */
+  .submit-button,
+  .close-button {
+    width: 48%;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    margin: 10px 1%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  
+  .close-button {
+    background-color: #dc3545;
+  }
+  
+  .close-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Dàn nút (submit và đóng) ngang hàng nhau */
+  button {
+    display: inline-block;
+  }
+  
+  /* Hiệu ứng sao */
+  .stars {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+  
+  .star {
+    margin: 0 5px;
+    transition: fill 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  /* Thông báo lỗi */
+  p {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  
