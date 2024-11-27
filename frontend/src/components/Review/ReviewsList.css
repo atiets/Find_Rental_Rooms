@@ -1,0 +1,62 @@
+.reviewlist-reviews-list {
+  margin-top: 20px;
+  padding: 20px; /* Tăng padding để nội dung thoáng hơn */
+  background-color: #f4f6f8; /* Màu nền sáng hơn, dịu mắt */
+  border-radius: 12px; /* Bo góc mềm mại hơn */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Tạo hiệu ứng nổi bật hơn */
+  margin-left: 20px; 
+  margin-right: 560px; 
+  border: 1px solid #e0e0e0; /* Thêm viền nhẹ nhàng */
+}
+
+.reviewlist-review-item {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #ffffff; /* Giữ nền trắng để nội dung rõ ràng */
+  border: 1px solid #d6d6d6; /* Viền nhạt hơn */
+  border-radius: 10px; /* Bo góc nhẹ hơn */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng nhẹ */
+  transition: transform 0.2s, box-shadow 0.2s; /* Hiệu ứng khi hover */
+}
+
+.reviewlist-review-item:hover {
+  transform: translateY(-5px); /* Hiệu ứng nổi lên khi hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng rõ hơn khi hover */
+}
+
+.reviewlist-username {
+  font-size: 1.1rem; /* Tăng kích thước chữ */
+  font-weight: bold;
+  color: #2c3e50; /* Màu chữ đậm và sang trọng */
+  text-align: left;
+  margin: 0;
+  padding-left: 0;
+}
+
+.reviewlist-stars {
+  display: flex;
+  gap: 5px;
+  margin: 5px 0;
+}
+
+.reviewlist-star {
+  cursor: default;
+  transition: fill 0.3s ease-in-out; /* Hiệu ứng mượt khi đổi màu */
+}
+
+.reviewlist-comment {
+  font-size: 0.95rem; /* Tăng nhẹ kích thước chữ */
+  color: #4a4a4a; /* Màu chữ trung tính hơn */
+  margin: 8px 0;
+  font-style: italic; 
+  text-align: left;
+  padding: 10px 15px; /* Thêm padding cho bình luận */
+  background-color: #f8f9fa; /* Nền nhạt cho phần bình luận */
+  border-left: 4px solid #00aaff; /* Đường viền trái nổi bật hơn */
+  border-radius: 4px; /* Bo góc đường viền trái */
+}
+
+.reviewlist-reviews-list p {
+  margin: 5px 0;
+  color: #7f8c8d; /* Màu chữ dịu nhẹ */
+}
