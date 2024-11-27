@@ -29,8 +29,8 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
   app.use("/v1/auth", authRoute);
   app.use("/v1/user", userRoute);
   app.use('/v1/posts', postRoute);
-  app.use('/v1/review', reviewRoute);
-  app.use('/v1/report', reportRouter);
+  // app.use('/v1/review', reviewRoute);
+  // app.use('/v1/report', reportRouter);
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
