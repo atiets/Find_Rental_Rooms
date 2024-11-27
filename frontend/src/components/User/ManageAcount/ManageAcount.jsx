@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Footer from "../../Footer/Footer";
 import Header from "../Header/Header";
 import AddPost from "../Post/AddPost";
@@ -7,10 +7,12 @@ import "./ManageAcount.css";
 import Sidebar from "./Sidebar";
 import ListUserPost from "./listUserPost";
 import UserProfile from "./UserProfile";
+import { updateProfilePicture } from "../../../redux/authSlice";
 
 const ManageAcount = () => {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
   const [selectedMenu, setSelectedMenu] = useState("manageAccount");
+  const dispatch = useDispatch();
 
   const renderContent = () => {
     switch (selectedMenu) {
@@ -33,6 +35,7 @@ const ManageAcount = () => {
           user={currentUser}
           selectedMenu={selectedMenu}
           setSelectedMenu={setSelectedMenu}
+          updateProfilePicture={(newPicture) => dispatch(updateProfilePicture(newPicture))}
         />
         <div className="content">{renderContent()}</div>
       </div>

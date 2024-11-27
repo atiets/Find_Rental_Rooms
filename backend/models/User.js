@@ -35,13 +35,13 @@ const userSchema = new mongoose.Schema({
     picture: {
       type: String,
     },
-    isBlocked: {   
+    isBlocked: {
       type: Boolean,
       default: false,
-    },  
-    bio:{
+    },
+    bio: {
       type: String,
-    }   
+    }
   }
 }, { timestamps: true });
 

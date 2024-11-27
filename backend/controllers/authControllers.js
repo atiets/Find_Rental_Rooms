@@ -4,44 +4,70 @@ const User = require("../models/User");
 const { use } = require("../routes/user");
 const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require("nodemailer");
+const multer = require("multer");
+const path = require("path");
 
 let refreshTokens = [];
 const client_id = '542714924408-kun6tfccnlcit4k9ono82oue7vqhth70.apps.googleusercontent.com';
 
 const client = new OAuth2Client(client_id);
 
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./uploads");  // Lưu ảnh vào thư mục 'uploads'
+    },
+    filename: (req, file, cb) => {
+        // Đặt tên file là ID của người dùng + thời gian + đuôi mở rộng của file
+        cb(null, req.user.id + "-" + Date.now() + path.extname(file.originalname));
+    },
+});
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // Giới hạn kích thước file tối đa là 5MB
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png|gif/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+        if (extname && mimetype) {
+            return cb(null, true);
+        } else {
+            cb(new Error("Chỉ chấp nhận ảnh JPEG, PNG hoặc GIF!"));
+        }
+    },
+});
 const authController = {
     //REGISTER
-    registerUser: async(req, res) => {
-    try {
-        const existingUserByEmail = await User.findOne({ email: req.body.email });
-        const existingUserByUsername = await User.findOne({ username: req.body.username });
+    registerUser: async (req, res) => {
+        try {
+            const existingUserByEmail = await User.findOne({ email: req.body.email });
+            const existingUserByUsername = await User.findOne({ username: req.body.username });
 
-        if (existingUserByEmail) {
-            return res.status(400).json({ message: "Email đã tồn tại!" });
+            if (existingUserByEmail) {
+                return res.status(400).json({ message: "Email đã tồn tại!" });
+            }
+
+            if (existingUserByUsername) {
+                return res.status(400).json({ message: "Tên người dùng đã tồn tại!" });
+            }
+
+            const salt = await bcrypt.genSalt(10);
+            const hashed = await bcrypt.hash(req.body.password, salt);
+
+            const newUser = new User({
+                username: req.body.username,
+                email: req.body.email,
+                password: hashed,
+            });
+
+            const user = await newUser.save();
+            res.status(200).json(user);
+
+        } catch (err) {
+            console.error("Error details: ", err);
+            res.status(500).json({ error: "An error occurred", details: err.message });
         }
-
-        if (existingUserByUsername) {
-            return res.status(400).json({ message: "Tên người dùng đã tồn tại!" });
-        }
-
-        const salt = await bcrypt.genSalt(10);
-        const hashed = await bcrypt.hash(req.body.password, salt);
-
-        const newUser = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: hashed,
-        });
-
-        const user = await newUser.save();
-        res.status(200).json(user);
-
-    } catch (err) {
-        console.error("Error details: ", err);
-        res.status(500).json({ error: "An error occurred", details: err.message });
-    }
-},
+    },
 
     //generate access token
     generateAccessToken: (user) => {
@@ -75,7 +101,7 @@ const authController = {
             if (!user) {
                 return res.status(404).json("Tên đăng nhập không đúng!");
             }
-            
+
             if (user.profile && user.profile.isBlocked) {
                 return res.status(403).json("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ hỗ trợ.");
             }
@@ -188,14 +214,14 @@ const authController = {
             }
 
             // Tạo token reset mật khẩu
-            const resetToken = authController.generateAccessToken(user); 
+            const resetToken = authController.generateAccessToken(user);
 
             // Cấu hình email để gửi mã reset mật khẩu
             const transporter = nodemailer.createTransport({
                 service: "Gmail",
                 auth: {
-                    user: process.env.EMAIL_USER, 
-                    pass: process.env.EMAI_PASS, 
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAI_PASS,
                 },
             });
 
@@ -262,7 +288,7 @@ const authController = {
     // Chỉnh sửa thông tin người dùng
     updateUserInfo: async (req, res) => {
         try {
-            const userId = req.user.id;  // user.id được lấy từ JWT payload (đã giải mã)
+            const userId = req.user.id;  // user.id từ JWT payload (đã giải mã)
 
             // Kiểm tra xem người dùng có tồn tại không
             const user = await User.findById(userId);
@@ -283,7 +309,15 @@ const authController = {
                 if (profile.name) user.profile.name = profile.name;
                 if (profile.phone) user.profile.phone = profile.phone;
                 if (profile.address) user.profile.address = profile.address;
-                if (profile.avatar) user.profile.avatar = profile.avatar;
+
+                // Nếu có ảnh mới được upload, lưu vào profile.picture
+                if (req.file) {
+                    user.profile.picture = req.file.path;  // Lưu đường dẫn ảnh vào trường picture
+                    console.log("có ảnh")
+                }
+                else {
+                    console.log(req.file)
+                }
             }
 
             // Lưu lại thay đổi
@@ -297,8 +331,6 @@ const authController = {
             res.status(500).json({ error: "An error occurred", details: err.message });
         }
     }
-
-
 };
 
 //store token:
@@ -308,4 +340,7 @@ const authController = {
 //     httponly cookies -> refreshToken
 
 
-module.exports = authController;
+module.exports = {
+    upload,
+    authController
+};
