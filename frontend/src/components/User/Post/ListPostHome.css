@@ -1,0 +1,145 @@
+/* Đặt các lớp CSS tùy chỉnh tại đây */
+
+/* CSS cho loading spinner */
+.loading-spinner {
+    border-top-color: #4b89f5;
+    /* Màu sắc của spinner */
+}
+
+/* CSS cho container lọc */
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* CSS cho dropdown (chọn tỉnh thành) */
+.filter-container select {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+/* CSS cho grid danh sách bài đăng */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    /* Tăng độ rộng bài post */
+    gap: 2rem;
+    padding: 1rem;
+}
+
+/* CSS cho container khi đang tải dữ liệu (spinner) */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CSS cho phân trang */
+.pagination {
+    display: flex;
+    justify-content: center;
+    /* Giữa các nút phân trang */
+    align-items: center;
+    margin-top: 2rem;
+    gap: 10px;
+    /* Khoảng cách giữa các nút */
+}
+
+.pagination button {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #f0f0f0;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    /* Tăng độ đậm cho chữ */
+    color: #333;
+    border: 1px solid #ddd;
+    /* Thêm border cho các nút */
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* CSS cho các nút phân trang trước và sau */
+.prev-button,
+.next-button {
+    background-color: #ddd;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+}
+
+.page-button {
+    background-color: #f0f0f0;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+}
+
+.page-button:hover {
+    background-color: #d1d1d1;
+    transform: translateY(-2px);
+    /* Hiệu ứng nâng lên khi hover */
+}
+
+/* CSS cho nút trang hiện tại */
+.page-button.bg-blue-500 {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.page-button.bg-blue-500:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    /* Hiệu ứng nâng lên khi hover */
+}
+
+/* CSS cho từng bài đăng */
+.post-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s ease;
+    max-width: 100%;
+    /* Đảm bảo bài đăng rộng hết màn hình */
+}
+
+.post-item:hover {
+    transform: translateY(-5px);
+    /* Tạo hiệu ứng hover */
+}
+
+/* CSS cho ảnh trong bài đăng */
+.post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị méo */
+    border-radius: 8px;
+}
+
+/* CSS cho chi tiết bài đăng */
+.post-details {
+    margin-top: 15px;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.post-description {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 10px;
+}

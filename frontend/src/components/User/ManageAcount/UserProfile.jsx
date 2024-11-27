@@ -108,7 +108,7 @@ const UserProfile = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        disabled={!editMode}
+                        disabled
                     />
                     {errors.email && <span className="error">{errors.email}</span>}
                 </div>
