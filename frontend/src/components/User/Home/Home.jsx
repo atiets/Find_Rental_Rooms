@@ -3,21 +3,21 @@ import ListPostHome from '../Post/ListPostHome';
 import './Home.css';
 
 const Home = () => {
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
 
   const handleLogout = () => {
-    setUser(null); 
+    setUser(null);
   };
 
   return (
     <div className="home-container">
-      <ListPostHome/>
+      <ListPostHome />
       {user ? (
         <>
           <p>Hello, {user}</p>
           <button onClick={handleLogout}>Logout</button>
         </>
-      ) : null} 
+      ) : null}
     </div>
   );
 };

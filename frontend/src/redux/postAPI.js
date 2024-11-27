@@ -19,7 +19,7 @@ export const createPost = async (postData, token) => {
   }
 }
 
-export const getAllPosts = async (token, page = 1, limit = 10, status = '', visibility = '') => { 
+export const getAllPosts = async (token, page = 1, limit = 10, status = '', visibility = '') => {
   try {
     const response = await axios.get(`${API_URL}posts`, {
       params: { page, limit, status, visibility },
@@ -29,7 +29,7 @@ export const getAllPosts = async (token, page = 1, limit = 10, status = '', visi
     });
     return response.data;
   } catch (error) {
-    throw new Error(error.message); 
+    throw new Error(error.message);
   }
 };
 
@@ -74,7 +74,7 @@ export const togglePostVisibility = async (postId, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error('Lỗi khi gọi API thay đổi trạng thái hiển thị bài viết:', error);
     throw error;
@@ -83,14 +83,14 @@ export const togglePostVisibility = async (postId, token) => {
 
 export const deletePost = async (postId, token) => {
   try {
-      const response = await axios.delete(`${API_URL}posts/${postId}`, {
-          headers: {
-              Authorization: `Bearer ${token}`,
-          },
-      });
-      return response.data; 
+    const response = await axios.delete(`${API_URL}posts/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
   } catch (error) {
-      throw error;
+    throw error;
   }
 };
 
@@ -98,10 +98,10 @@ export const updatePost = async (postId, postData, token) => {
   try {
     const response = await axios.put(
       `${API_URL}update/${postId}`,
-      postData, 
+      postData,
       {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       }
     );
