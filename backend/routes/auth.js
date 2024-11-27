@@ -1,7 +1,8 @@
-const authController = require("../controllers/authControllers");
+const { upload, authController } = require("../controllers/authControllers");
 const middlewareControllers = require("../controllers/middlewareControllers");
-
 const router = require("express").Router();
+
+
 
 //register
 router.post("/register", authController.registerUser);
@@ -27,7 +28,7 @@ router.post("/reset-password", authController.resetPassword);
 router.get("/info", middlewareControllers.verifyToken, authController.getUserInfo);
 
 // Chỉnh sửa thông tin người dùng
-router.put("/update", middlewareControllers.verifyToken, authController.updateUserInfo);
+router.put("/update", middlewareControllers.verifyToken, authController.updateUserInfo, upload.single('picture'));
 
 
 module.exports = router;

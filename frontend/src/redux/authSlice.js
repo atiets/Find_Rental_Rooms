@@ -103,7 +103,7 @@ const authSlice = createSlice({
                     accessToken,  // Lưu accessToken từ backend
                     googleCredential: credential, // Lưu credential của Google
                     createdAt: new Date(decodedToken.iat * 1000).toISOString(), // Thời gian tạo người dùng
-                    updatedAt: new Date().toISOString(), 
+                    updatedAt: new Date().toISOString(),
                     __v: 0  // Mặc định là 0
                 };
                 console.log("Current User in Redux:", state.login.currentUser);
@@ -130,6 +130,13 @@ const authSlice = createSlice({
             state.forgotPassword.isFetching = false;
             state.forgotPassword.error = true;
         },
+        updateProfilePicture: (state, action) => {
+            if (state.login.currentUser) {
+                state.login.currentUser.profile.picture = action.payload;
+            } else {
+                console.error("Không có người dùng nào đăng nhập để cập nhật ảnh.");
+            }
+        },
     }
 });
 
@@ -148,7 +155,8 @@ export const {
     googleLoginFailed,
     forgotPasswordStart,
     forgotPasswordSuccess,
-    forgotPasswordFailed
+    forgotPasswordFailed,
+    updateProfilePicture
 } = authSlice.actions;
 
 export default authSlice.reducer;
