@@ -24,18 +24,6 @@ const Header = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    const handlePropertyChange = (event) => {
-        const value = event.target.value;
-        setPropertyType(value);
-        if (value === 'tro') {
-            navigate('/ChoThueTro');
-        } else if (value === 'nha') {
-            navigate('/ChoThueNha');
-        } else if (value === 'matbang') {
-            navigate('/ChoThueMatBang');
-        }
-    };
-
     const handleAddPost = () => {
         if (!currentUser) {
             alert('Bạn cần đăng nhập để đăng tin mới.');
@@ -51,17 +39,6 @@ const Header = () => {
                 <h1 className="header-title" onClick={() => navigate('/')}>PhongTroXinh.com</h1>
                 <nav className="header-nav">
                     <button onClick={() => navigate('/')} className="nav-button">Trang Chủ</button>
-                    <select
-                        className="property-select"
-                        value={propertyType}
-                        onChange={handlePropertyChange}
-                    >
-                        <option value="" disabled>Chọn Loại Bất Động Sản</option>
-                        <option value="tro">Cho Thuê Trọ</option>
-                        <option value="nha">Cho Thuê Nhà</option>
-                        <option value="matbang">Cho Thuê Mặt Bằng</option>
-                    </select>
-                    <button onClick={() => navigate('/TinTuc')} className="nav-button">Tin Tức</button>
                     <button onClick={handleAddPost} className="nav-button">Đăng Tin Mới</button>
                     <div className="user-dropdown">
                         <button onClick={handleDropdownToggle} className="nav-button">
