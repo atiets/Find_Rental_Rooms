@@ -128,7 +128,7 @@ const ManageUsers = () => {
             <TableBody>
               {filteredUsers?.map((user) => (
                 <TableRow key={user._id}>
-                  <TableCell><p className="user_name" onClick={() => handleOpenProfile(user)}>{user.username}</p> </TableCell>
+                  <TableCell><p className="user_nameAD" onClick={() => handleOpenProfile(user)}>{user.username}</p> </TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     {user.profile?.isBlocked ? "Đã khóa" : "Hoạt động"}

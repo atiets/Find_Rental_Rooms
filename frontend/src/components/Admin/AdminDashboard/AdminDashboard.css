@@ -26,8 +26,8 @@ h1 {
 }
 
 p {
-  text-align: center;
-  font-size: 18px;
+  text-align: left;
+  font-size: 14px;
 }
 
 .error-message {
@@ -58,7 +58,7 @@ button {
 }
 
 button:hover {
-  background-color: #357ABD;
+  background-color: #a2a9b0;
 }
 
 /* Biểu đồ */
@@ -129,6 +129,4 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #357ABD;
-}
+

@@ -150,8 +150,9 @@
 
 
 /* style detail user */
-.manage-users .user_name {
+.manage-users .user_nameAD {
   cursor: pointer;
+  margin-left: 0;
 }
 
 .user-detail.user-image {
