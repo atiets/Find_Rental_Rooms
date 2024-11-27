@@ -1,46 +1,100 @@
-/* Đặt footer luôn ở cuối trang */
 .footer {
-  background-color: #282c34;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  background-color: #000000;
+  padding: 20px 50px;
+  color: white;
+  margin-top: auto;
 }
 
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
+.app-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  min-height: 100vh;  
 }
 
-.footer-section {
-  flex: 1;
+.footer-logo-description, .footer-links, .footer-newsletter, .footer-contact {
   padding: 10px;
-  min-width: 250px;
 }
 
-.footer-section h6 {
+.footer-logo {
+  font-size: 2rem;
   font-weight: bold;
+}
+
+.footer-description {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.footer-social {
+  margin-top: 20px;
+}
+
+.social-button {
+  color: white;
+  margin-right: 10px;
+}
+
+.footer-links {
+  margin-left: 20px;
+}
+
+.footer-links h6 {
+  font-size: 1.2rem;
   margin-bottom: 10px;
 }
 
-.footer-section p {
-  margin: 5px 0;
-  font-size: 14px;
+.footer-links .MuiTypography-body2 {
+  margin-bottom: 5px;
+}
+
+.footer-newsletter {
+  margin-left: 20px;
+}
+
+.footer-newsletter h6 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.footer-newsletter .email-input {
+  background-color: aliceblue;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.footer-newsletter .subscribe-button {
+  background-color: #4caf50;
+  color: white;
+  margin-top: 10px;
+}
+
+.footer-contact {
+  margin-left: 20px;
+}
+
+.footer-contact h6 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.footer-contact .MuiTypography-body2 {
+  margin-top: 5px;
 }
 
 @media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
+  .footer {
+    grid-template-columns: 1fr;
+    padding: 20px;
   }
 
-  .footer-section {
-    text-align: center;
-    padding: 10px 0;
+  .footer-logo-description, .footer-links, .footer-newsletter, .footer-contact {
+    margin-bottom: 20px;
   }
-}
+
+  .footer-social {
+    margin-top: 15px;
+  }
+}  

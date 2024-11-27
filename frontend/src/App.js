@@ -15,6 +15,7 @@ import Home from './components/User/Home/Home';
 import ManageAcount from './components/User/ManageAcount/ManageAcount';
 import AddPost from './components/User/Post/AddPost';
 import PostDetail from './components/User/Post/PostDetail';
+import ManagePostAdmin from './components/Admin/AdminDashboard/ManagePostAdmin';
 
 function App() {
   const currentUser = useSelector((state) => state.auth.login.currentUser);
@@ -36,6 +37,7 @@ function App() {
             <>
               {currentUser?.admin ? <AdminHeader /> : <Header />}
               <PostDetail />
+              <Footer/>
             </>} 
           />
           <Route path="/managerAc" element={<ManageAcount />} />
@@ -53,10 +55,20 @@ function App() {
               <Footer />
             </>
           } />
+
+          <Route path="/manage-posts" element={
+            <>
+              <AdminHeader />
+              <ManagePostAdmin />
+              <Footer />
+            </>
+          } />
+
           <Route path="/user-posts/:userId" element={
             <>
               <AdminHeader />
               <UserPosts />
+              <Footer/>
             </>
           } />
           <Route path="/manage-users" element={
